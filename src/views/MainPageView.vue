@@ -122,7 +122,7 @@
 
 
     <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
-      <img alt="Welcome" src="https://media.tenor.com/VFFJ8Ei3C2IAAAAC/rickroll-rick.gif"
+      <img alt="Welcome" src="https://media.tenor.com/2PlWRlGozeoAAAAd/matsuoka-shuzo-never-give-up.gif"
         class="absolute inset-0 h-full w-full object-cover" />
     </div>
   </section>
