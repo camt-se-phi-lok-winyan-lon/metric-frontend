@@ -2,6 +2,6 @@ version: "3.9"
 
 services:
   web:
-    image:  ${DOCKER_HUB_USERNAME}/metric-project:latest
+    image:  ${DOCKER_HUB_USERNAME}/metric-fe:latest
     ports:
       - 8001:80
