@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import type { RepoItem } from '@/type'
 import { useRepoStore } from '@/stores/libstore'
-import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 
 const selections = ref<RepoItem[]>([])
@@ -11,7 +10,7 @@ const repoStore = useRepoStore()
 const router = useRouter()
 
 
-fetch('http://54.165.57.97:8999/library').then((res) => {
+fetch('http://localhost:8080/library').then((res) => {
   if (res.body) {
     res.body
       .getReader()
@@ -25,7 +24,7 @@ fetch('http://54.165.57.97:8999/library').then((res) => {
 })
 
 function submit() {
-  fetch('http://54.165.57.97:8999/ranking', {
+  fetch('http://localhost:8080/ranking', {
     method: 'POST',
     body: JSON.stringify({
       libraries: selections.value.map((x) => {
