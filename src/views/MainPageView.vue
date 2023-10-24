@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { RepoItem } from '@/type'
+import { useRepoStore } from '@/stores/libstore'
+import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
+
 const selections = ref<RepoItem[]>([])
 const searchWord = ref<string>('')
+const repoStore = useRepoStore()
+const router = useRouter()
+
 
 fetch('http://54.165.57.97:8999/library').then((res) => {
   if (res.body) {
@@ -17,7 +24,7 @@ fetch('http://54.165.57.97:8999/library').then((res) => {
   }
 })
 
-async function submit() {
+function submit() {
   fetch('http://54.165.57.97:8999/ranking', {
     method: 'POST',
     body: JSON.stringify({
@@ -31,8 +38,10 @@ async function submit() {
       'Content-type': 'application/json'
     }
   }).then(async (res) => {
-    console.log(res)
-    console.log(new TextDecoder().decode((await res.body?.getReader().read())?.value))
+    const resp = await res.json()
+    console.log(resp)
+    repoStore.setEvent(resp)
+    router.push({name : "output"})
   })
 }
 const repos = ref<RepoItem[]>([])
