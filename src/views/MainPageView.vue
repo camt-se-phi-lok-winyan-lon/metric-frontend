@@ -208,7 +208,7 @@ const repos = ref<RepoItem[]>([
     <div class="relative h-64 w-full sm:h-96 lg:h-full lg:w-1/2">
       <img
         alt="Welcome"
-        src="https://i.ytimg.com/vi/kDY1y0OL50A/hqdefault.jpg"
+        src="https://media.tenor.com/2PlWRlGozeoAAAAd/matsuoka-shuzo-never-give-up.gif"
         class="absolute inset-0 h-full w-full object-cover"
       />
     </div>
