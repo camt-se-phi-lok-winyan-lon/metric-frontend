@@ -15,8 +15,10 @@ export interface RepoItem {
   url: string
   lintScore: number
   testCoverage: number
+  testPercentage: string
   documentScore: number
   activeness: number
   testPercentageGrade: string
   activenessGrade: string
+  totalScore: number
 }
