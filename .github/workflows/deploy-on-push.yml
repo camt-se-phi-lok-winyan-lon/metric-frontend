@@ -4,6 +4,7 @@ name: Deploy to AWS Docker on merge
     branches:
       - feat/deployment
       - dev
+      - master
 jobs:
     build-frontend:
         name: build-frontend
