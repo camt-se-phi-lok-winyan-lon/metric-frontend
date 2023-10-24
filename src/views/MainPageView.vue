@@ -25,7 +25,7 @@ const repos = ref<string[]>(['A', 'B', 'C', 'D', 'E'])
             class="mt-1.5 w-full rounded-lg border-Macrage-blue text-gray-700 bg-slate-400 sm:text-sm"
           >
             <option value="">私を選ばないでください😭</option>
-            <option v-for="option in repos" :value="option">{{ option }}</option>
+            <option v-for="option in repos" :value="option" :key="option">{{ option }}</option>
           </select>
         </div>
 
@@ -40,7 +40,7 @@ const repos = ref<string[]>(['A', 'B', 'C', 'D', 'E'])
             class="mt-1.5 w-full rounded-lg border-Macrage-blue text-gray-700 bg-slate-400 sm:text-sm"
           >
             <option value="">私を選ばないでください😭</option>
-            <option v-for="option in repos" :value="option">{{ option }}</option>
+            <option v-for="option in repos" :value="option" :key="option">{{ option }}</option>
           </select>
         </div>
 
@@ -55,7 +55,7 @@ const repos = ref<string[]>(['A', 'B', 'C', 'D', 'E'])
             class="mt-1.5 w-full rounded-lg border-Macrage-blue text-gray-700 bg-slate-400 sm:text-sm"
           >
             <option value="">私を選ばないでください😭</option>
-            <option v-for="option in repos" :value="option">{{ option }}</option>
+            <option v-for="option in repos" :value="option" :key="option">{{ option }}</option>
           </select>
         </div>
 
@@ -70,7 +70,7 @@ const repos = ref<string[]>(['A', 'B', 'C', 'D', 'E'])
             class="mt-1.5 w-full rounded-lg border-Macrage-blue text-gray-700 bg-slate-400 sm:text-sm"
           >
             <option value="">私を選ばないでください😭</option>
-            <option v-for="option in repos" :value="option">{{ option }}</option>
+            <option v-for="option in repos" :value="option" :key="option">{{ option }}</option>
           </select>
         </div>
 
@@ -85,7 +85,7 @@ const repos = ref<string[]>(['A', 'B', 'C', 'D', 'E'])
             class="mt-1.5 w-full rounded-lg border-Macrage-blue text-gray-700 bg-slate-400 sm:text-sm"
           >
             <option value="">私を選ばないでください😭</option>
-            <option v-for="option in repos" :value="option">{{ option }}</option>
+            <option v-for="option in repos" :value="option" :key="option">{{ option }}</option>
           </select>
         </div>
         <button
