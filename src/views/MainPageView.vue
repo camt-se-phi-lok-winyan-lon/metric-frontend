@@ -88,7 +88,7 @@ const repos = ref<RepoItem[]>([])
             type="text"
             class="form-input md:text-xl w-full text-white placeholder:text-slate-500 bg-transparent border-0 border-b border-slate-700 focus:outline-none focus:ring-0 focus:border-slate-400 transition-colors peer"
             v-model="searchWord"
-            placeholder="Repository"
+            placeholder="リポジトリ"
           />
           <div
             class="text-black hidden peer-focus:flex overflow-hidden transition-all absolute bg-white border border-stone-700 w-full flex-col shadow-lg"
