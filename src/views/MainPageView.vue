@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { RepoItem } from '@/type'
-const selections = ref<number[]>(new Array<number>(5))
+const selections = ref<RepoItem[]>([])
+const searchWord = ref<string>('')
 
 const repos = ref<RepoItem[]>([
   {
@@ -75,129 +76,69 @@ const repos = ref<RepoItem[]>([
           <span class="text-OrangeIsIt?">さあ</span>始めましょう！
         </h1>
 
-        <p class="mt-4 text-slate-400 tracking-wide">
-          <span class="text-red-500">出場者</span>を選択してください
+        <p class="mt-4 bg-red-600 tracking-wide font-NotoSerif text-lg">
+          <span class="text-white">出場者</span>を選択してください
         </p>
       </div>
       <div class="flex flex-col gap-10 font-NotoSerif">
-        <div>
-          <label for="HeadlineAct" class="block text-sm font-medium text-white tracking-widest"
-            ><span class="text-Yellow? text-lg">1</span>番</label
+        <div class="relative">
+          <label class="text-xs text-white">出場者</label>
+          <div
+            class="text-white flex flex-row flex-wrap gap-1 [&>*:nth-child(4n+1)]:bg-Macrage-blue [&>*:nth-child(4n+2)]:bg-OrangeIsIt? [&>*:nth-child(4n+3)]:bg-amber-500 [&>*:nth-child(4n+4)]:bg-rose-500"
           >
-
-          <select
-            name="HeadlineAct"
-            id="HeadlineAct"
-            class="mt-1.5 w-full rounded-lg border-0 text-gray-700 bg-slate-50 sm:text-sm"
-            v-model="selections[0]"
-          >
-            <option value="0">私を選ばないでください😭</option>
-            <option
-              v-for="option in repos"
-              :value="option.id"
-              :key="option.id"
-              :disabled="selections.includes(option.id)"
-              class="disabled:hidden"
+            <div
+              v-for="selection in selections"
+              class="rounded-r-full rounded-l-full px-2 py-1 text-xs flex flex-row items-center gap-1"
+              :key="selection.id"
             >
-              {{ option.name }}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <label for="HeadlineAct" class="block text-sm font-medium text-white tracking-widest"
-            ><span class="text-Yellow? text-lg">2</span>番</label
+              <button
+                type="button"
+                @click="selections = selections.filter((x) => x.id != selection.id)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <p class="text-white font-bold">{{ selection.name }}</p>
+            </div>
+          </div>
+          <input
+            type="text"
+            class="form-input md:text-xl w-full text-white placeholder:text-slate-500 bg-transparent border-0 border-b border-slate-700 focus:outline-none focus:ring-0 focus:border-slate-400 transition-colors peer"
+            v-model="searchWord"
+            placeholder="Repository"
+          />
+          <div
+            class="text-black hidden peer-focus:flex overflow-hidden transition-all absolute bg-white border border-stone-700 w-full flex-col shadow-lg"
           >
-
-          <select
-            name="HeadlineAct"
-            id="HeadlineAct"
-            class="mt-1.5 w-full rounded-lg border-0 text-gray-700 bg-slate-50 sm:text-sm"
-            v-model="selections[1]"
-          >
-            <option value="0">私を選ばないでください😭</option>
-            <option
-              v-for="option in repos"
-              :value="option.id"
-              :key="option.id"
-              :disabled="selections.includes(option.id)"
-              class="disabled:hidden"
+            <button
+              type="button"
+              class="bg-slate-800 text-white hover:bg-OrangeIsIt? px-1"
+              v-for="repo in repos.filter(
+                (x) =>
+                  x.name.toLowerCase().includes(searchWord.toLowerCase()) &&
+                  !selections.map((x) => x.id).includes(x.id)
+              )"
+              :key="repo.id"
+              @mousedown.prevent=""
+              @click="
+                () => {
+                  if (selections.length < 5) {
+                    selections.push(repo)
+                  }
+                }
+              "
             >
-              {{ option.name }}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <label for="HeadlineAct" class="block text-sm font-medium text-white tracking-widest"
-            ><span class="text-Yellow? text-lg">3</span>番</label
-          >
-
-          <select
-            name="HeadlineAct"
-            id="HeadlineAct"
-            class="mt-1.5 w-full rounded-lg border-0 text-gray-700 bg-slate-50 sm:text-sm"
-            v-model="selections[2]"
-          >
-            <option value="0">私を選ばないでください😭</option>
-            <option
-              v-for="option in repos"
-              :value="option.id"
-              :key="option.id"
-              :disabled="selections.includes(option.id)"
-              class="disabled:hidden"
-            >
-              {{ option.name }}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <label for="HeadlineAct" class="block text-sm font-medium text-white tracking-widest"
-            ><span class="text-Yellow? text-lg">4</span>番</label
-          >
-
-          <select
-            name="HeadlineAct"
-            id="HeadlineAct"
-            class="mt-1.5 w-full rounded-lg border-0 text-gray-700 bg-slate-50 sm:text-sm"
-            v-model="selections[3]"
-          >
-            <option value="0">私を選ばないでください😭</option>
-            <option
-              v-for="option in repos"
-              :value="option.id"
-              :key="option.id"
-              :disabled="selections.includes(option.id)"
-              class="disabled:hidden"
-            >
-              {{ option.name }}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <label for="HeadlineAct" class="block text-sm font-medium text-white tracking-widest"
-            ><span class="text-Yellow? text-lg">5</span>番</label
-          >
-
-          <select
-            name="HeadlineAct"
-            id="HeadlineAct"
-            class="mt-1.5 w-full rounded-lg border-0 text-gray-700 bg-slate-50 sm:text-sm"
-            v-model="selections[4]"
-          >
-            <option value="0">私を選ばないでください😭</option>
-            <option
-              v-for="option in repos"
-              :value="option.id"
-              :key="option.id"
-              :disabled="selections.includes(option.id)"
-              class="disabled:hidden"
-            >
-              {{ option.name }}
-            </option>
-          </select>
+              {{ repo.name }}
+            </button>
+          </div>
         </div>
         <button type="submit" class="inline-block rounded-lg bg-OrangeIsIt? px-5 py-3 font-bold">
           提出する
