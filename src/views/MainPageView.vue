@@ -4,63 +4,38 @@ import type { RepoItem } from '@/type'
 const selections = ref<RepoItem[]>([])
 const searchWord = ref<string>('')
 
-const repos = ref<RepoItem[]>([
-  {
-    id: 2,
-    name: 'pypokedex',
-    url: 'https://github.com/arnavb/pypokedex.git',
-    lintScore: 0.0,
-    documentScore: 2,
-    activeness: 0.07193077339102218,
-    testPercentageGrade: 'C',
-    activenessGrade: 'A',
-    testCoverage: 0.33
-  },
-  {
-    id: 3,
-    name: 'prefect-pokemon',
-    url: 'https://github.com/desertaxle/prefect-pokemon.git',
-    lintScore: 0.0,
-    documentScore: 4,
-    activeness: 0.014285714285714285,
-    testPercentageGrade: 'A',
-    activenessGrade: 'A',
-    testCoverage: 1.0
-  },
-  {
-    id: 4,
-    name: 'pokemon',
-    url: 'https://github.com/vsoch/pokemon.git',
-    lintScore: 0.0,
-    documentScore: 3,
-    activeness: 0.012674271229404309,
-    testPercentageGrade: 'B',
-    activenessGrade: 'A',
-    testCoverage: 0.78
-  },
-  {
-    id: 5,
-    name: 'pokemonlib',
-    url: 'https://github.com/arthuro555/pokemonlib.git',
-    lintScore: 5.17,
-    documentScore: 0,
-    activeness: 0.20810810810810812,
-    testPercentageGrade: 'F',
-    activenessGrade: 'A',
-    testCoverage: 0.0
-  },
-  {
-    id: 6,
-    name: 'palettetown',
-    url: 'https://github.com/rowland-208/palettetown.git',
-    lintScore: 0.0,
-    documentScore: 0,
-    activeness: 7.0,
-    testPercentageGrade: 'F',
-    activenessGrade: 'A',
-    testCoverage: 0.06
+fetch('http://54.165.57.97:8999/library').then((res) => {
+  if (res.body) {
+    res.body
+      .getReader()
+      .read()
+      .then((body) => {
+        if (body.value) {
+          repos.value = JSON.parse(new TextDecoder().decode(body.value))
+        }
+      })
   }
-])
+})
+
+async function submit() {
+  fetch('http://54.165.57.97:8999/ranking', {
+    method: 'POST',
+    body: JSON.stringify({
+      libraries: selections.value.map((x) => {
+        return {
+          id: x.id
+        }
+      })
+    }),
+    headers: {
+      'Content-type': 'application/json'
+    }
+  }).then(async (res) => {
+    console.log(res)
+    console.log(new TextDecoder().decode((await res.body?.getReader().read())?.value))
+  })
+}
+const repos = ref<RepoItem[]>([])
 </script>
 <template>
   <section class="relative flex flex-wrap lg:h-screen lg:items-center">
@@ -84,7 +59,7 @@ const repos = ref<RepoItem[]>([
         <div class="relative">
           <label class="text-xs text-white">出場者</label>
           <div
-            class="text-white flex flex-row flex-wrap gap-1 [&>*:nth-child(4n+1)]:bg-Macrage-blue [&>*:nth-child(4n+2)]:bg-OrangeIsIt? [&>*:nth-child(4n+3)]:bg-amber-500 [&>*:nth-child(4n+4)]:bg-rose-500"
+            class="mt-2 text-white flex flex-row flex-wrap gap-1 [&>*:nth-child(4n+1)]:bg-Macrage-blue [&>*:nth-child(4n+2)]:bg-OrangeIsIt? [&>*:nth-child(4n+3)]:bg-amber-500 [&>*:nth-child(4n+4)]:bg-rose-500"
           >
             <div
               v-for="selection in selections"
@@ -124,7 +99,8 @@ const repos = ref<RepoItem[]>([
               v-for="repo in repos.filter(
                 (x) =>
                   x.name.toLowerCase().includes(searchWord.toLowerCase()) &&
-                  !selections.map((x) => x.id).includes(x.id)
+                  !selections.map((x) => x.id).includes(x.id) &&
+                  selections.length < 5
               )"
               :key="repo.id"
               @mousedown.prevent=""
@@ -140,7 +116,11 @@ const repos = ref<RepoItem[]>([
             </button>
           </div>
         </div>
-        <button type="submit" class="inline-block rounded-lg bg-OrangeIsIt? px-5 py-3 font-bold">
+        <button
+          type="submit"
+          class="inline-block rounded-lg bg-OrangeIsIt? px-5 py-3 font-bold"
+          @click="submit()"
+        >
           提出する
         </button>
       </div>
