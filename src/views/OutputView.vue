@@ -14,7 +14,7 @@
             </p>
           </div>
 
-          <div class="mt-2">
+          <div class="mt-2 font-bold font-mono">
             <p class="mt-2 text-gray-600 dark:text-gray-300 pl-7">Lint score: {{ repo.lintScore }}</p>
             <p class="mt-2 text-gray-600 dark:text-gray-300 pl-7">Test coverage: {{ repo.testCoverage }}</p>
             <p class="mt-2 text-gray-600 dark:text-gray-300 pl-7">Test percentage grade: {{ repo.testPercentageGrade}}</p>
@@ -29,7 +29,7 @@
             </p>
           </div>
 
-          <div class="flex items-center justify-between mt-4">
+          <div class="flex items-center justify-between mt-4 font-bold font-mono">
             <p class="mt-2 text-gray-600 dark:text-gray-300">Activeness: {{ repo.activeness }} </p>
 
             <div class="flex items-center">
