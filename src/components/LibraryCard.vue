@@ -7,7 +7,7 @@ defineProps({
     type: Object as PropType<RepoItem>,
     required: true
   },
-  index: Number
+  index: {type: Number, required: true}
 })
 
 
