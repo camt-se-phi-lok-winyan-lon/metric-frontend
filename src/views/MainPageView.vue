@@ -10,7 +10,7 @@ const repoStore = useRepoStore()
 const router = useRouter()
 
 
-fetch('http://localhost:8080/library').then((res) => {
+fetch('http://100.25.146.147:8999/library').then((res) => {
   if (res.body) {
     res.body
       .getReader()
@@ -24,7 +24,7 @@ fetch('http://localhost:8080/library').then((res) => {
 })
 
 function submit() {
-  fetch('http://localhost:8080/ranking', {
+  fetch('http://100.25.146.147:8999/ranking', {
     method: 'POST',
     body: JSON.stringify({
       libraries: selections.value.map((x) => {
